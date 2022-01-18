@@ -1,5 +1,6 @@
 import 'package:flirt/configs/themes.dart';
 import 'package:flirt/module/home/interfaces/screens/home_screen.dart';
+import 'package:flirt/module/top_movies/service/cubit/movies_cubit.dart';
 import 'package:flirt/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,15 +12,22 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flirt',
-      home: _HomePageState(),
-      theme: defaultTheme,
-      supportedLocales: const <Locale>[
-        Locale('en'),
+    return MultiBlocProvider(
+      providers: <BlocProvider<dynamic>>[
+        BlocProvider<MoviesCubit>(
+          create: (BuildContext context) => MoviesCubit(),
+        ),
       ],
-      routes: routes,
-      debugShowCheckedModeBanner: false,
+      child: MaterialApp(
+        title: 'Flirt',
+        home: _HomePageState(),
+        theme: defaultTheme,
+        supportedLocales: const <Locale>[
+          Locale('en'),
+        ],
+        routes: routes,
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

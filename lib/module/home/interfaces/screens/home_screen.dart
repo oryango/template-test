@@ -8,8 +8,23 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool _hasInternet = true;
+
     final MediaQueryData mediaQuery = MediaQuery.of(context);
     final ThemeData _theme = Theme.of(context);
+
+    void seeTopMovies() {
+      if (_hasInternet) {
+        Navigator.of(context).pushNamed(TopMoviesScreen.routeName);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('No internet connection'),
+            backgroundColor: _theme.errorColor,
+          ),
+        );
+      }
+    }
 
     return Column(
       children: [
@@ -32,9 +47,7 @@ class HomeScreen extends StatelessWidget {
                 'See Top 250 Movies',
                 style: _theme.textTheme.button?.copyWith(color: Colors.black),
               ),
-              onPressed: () {
-                Navigator.of(context).pushNamed(TopMoviesScreen.routeName);
-              },
+              onPressed: seeTopMovies,
             ),
           ),
         ),
