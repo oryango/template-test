@@ -1,6 +1,4 @@
-import 'package:flirt/module/home/interfaces/widgets/bottom_bubble.dart';
-import 'package:flirt/module/home/interfaces/widgets/main_button_bar.dart';
-import 'package:flirt/module/home/interfaces/widgets/top_bubble.dart';
+import 'package:flirt/module/top_movies/interfaces/screens/top_movies_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -10,22 +8,37 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Theme.of(context).primaryColor,
-        child: SafeArea(
-          child: Container(
-            color: Colors.white,
-            child: Stack(
-              children: const <Widget>[
-                TopBubble(),
-                MainButtonBar(),
-                BottomBubble(),
-              ],
+    final MediaQueryData mediaQuery = MediaQuery.of(context);
+    final ThemeData _theme = Theme.of(context);
+
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: mediaQuery.size.height * 0.25),
+          child: Image.asset(
+            'assets/images/imdb.png',
+            fit: BoxFit.fitHeight,
+            width: mediaQuery.size.width * 0.4,
+          ),
+        ),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 36.0),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.yellow[700]),
+              ),
+              child: Text(
+                'See Top 250 Movies',
+                style: _theme.textTheme.button?.copyWith(color: Colors.black),
+              ),
+              onPressed: () {
+                Navigator.of(context).pushNamed(TopMoviesScreen.routeName);
+              },
             ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
