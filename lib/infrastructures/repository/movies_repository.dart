@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 class MoviesRepository {
   final String _baseURL = 'imdb-api.com';
   final String _moviesRepoURL = '/en/API';
-  final String _apiKey = 'k_3aykemn3';
+  final String _apiKey = 'inset your api key here';
 
   Future<MoviesTop250RequestResponse> fetchTopMovies() async {
     try {
